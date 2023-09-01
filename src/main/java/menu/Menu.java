@@ -17,21 +17,21 @@ import java.util.Objects;
 import java.util.Scanner;
 import java.lang.reflect.*;
 
+/**
+ * Classe Menu qui sert à lancer le jeu en récupérant les personnages qui sont disponible dans la base de donnée
+ *      * avec la méthode getHeroes().
+ *      * ensuite le menu permet de lancer la partie en utilisant l'objet Game.
+ *      * le menu dispose de 2 actions possible : soit lancer la partie , soit quittez.
+ */
 public class Menu {
 
     /**
+     *
      * @throws PersonnageHorsPlateauException
-     * @throws SQLException
-     * @throws IOException
-     * @throws ClassNotFoundException
-     * @throws DatabaseException
-     * @throws HeroException
-     * Classe Menu qui sert à lancer le jeu en récupérant les personnages qui sont disponible dans la base de donnée
-     *      * avec la méthode getHeroes().
-     *      * ensuite le menu permet de lancer la partie en utilisant l'objet Game.
-     *      * le menu dispose de 2 actions possible : soit lancer la partie , soit quittez.
+     * @throws DatabaseException Si la base de données n’est pas accessible ou si login/pwd n’est pas correct.
+     * @throws HeroException si impossible d'obtenir les info des personnages.
      */
-    public void menu() throws PersonnageHorsPlateauException, SQLException, IOException, ClassNotFoundException, DatabaseException, HeroException {
+    public void menu() throws PersonnageHorsPlateauException, DatabaseException, HeroException {
 
         Scanner user_input = new Scanner(System.in);
         List<Character> charactersList = getHeroes();
@@ -69,15 +69,14 @@ public class Menu {
     }
 
     /**
-     * méthode qui permet de se connecter à la base de donnée, d'exécuter la requete sql pour récuperer les données
-     *      * des personnages.
+     * méthode qui recupere la connexion à la base de donnée, d'exécuter la requete sql pour récuperer les donnée des personnages.
      * @return la liste de personnages.
      * @throws DatabaseException If Database is not reachable or login/pwd ar not correct.
      */
     public List<Character> getHeroes() throws DatabaseException, HeroException {
 
         List<Character> charactersList = new ArrayList<Character>();
-        try{
+        try {
 
             String sql = "SELECT * FROM Hero";
             Connection connection = Database.getConnection();
@@ -96,37 +95,32 @@ public class Menu {
                 String armeSort = resultat.getString("ArmeSort");
                 String bouclier = resultat.getString("Bouclier");
 
-
-
                 // Reflection in Java
-
-
-                try {
-                    Class<?> clazz = Class.forName("characters."+type);
-                    Character character = (Character) clazz.getDeclaredConstructor(String.class, int.class, int.class, String.class, String.class).newInstance(nom, niveauVie, niveauForce, armeSort, bouclier);
-                    charactersList.add(character);
-                } catch (Exception e) {
-                    throw new HeroException("impossible d'obtenir les info des personnages : " + e.getMessage());
-                }
+                Class<?> clazz = Class.forName("characters."+type);
+                Character character = (Character) clazz.getDeclaredConstructor(String.class, int.class, int.class, String.class, String.class).newInstance(nom, niveauVie, niveauForce, armeSort, bouclier);
+                charactersList.add(character);
             }
 
-        }catch (SQLException e){
+        } catch (SQLException e){
             throw new DatabaseException("impossible de se connecter" + e.getMessage());
+        } catch (Exception e) {
+            throw new HeroException("impossible d'obtenir les info des personnages : " + e.getMessage());
         }
 
         return charactersList;
     }
 
-
-
-    public void showMenu(){
-
-
+    private void showMenu(){
         System.out.println("voici le menu :  choix ");
         System.out.println("tapez 1  : pour démarrer le jeu");
         System.out.println("tapez 2 : pour quitter");
     }
 
+    /**
+     * menu qui permet de lancer le dé ou de quitter.
+     * Si on lance le dé , on applique la méthode move.
+     * @return le résultat du dé.
+     */
     public int rollTheDice (){
         Game dice = new Game();
         Scanner user_input = new Scanner(System.in);

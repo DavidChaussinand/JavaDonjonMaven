@@ -19,10 +19,7 @@ import java.util.ArrayList;
  */
 public abstract class Case {
 
-
-
     private String name;
-    private Object Case;
 
     public Case(String name) {
         this.name = name;
@@ -36,11 +33,7 @@ public abstract class Case {
      * pour un guerrier , +3 d'attaque, et mise à jour setAttackForce (+3).
      *
      */
-    public abstract void interaction (Character character);
-
-
-
-
+    public abstract void interaction(Character character);
 
     @Override
     public String toString() {

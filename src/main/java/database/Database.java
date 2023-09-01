@@ -32,7 +32,7 @@ public class Database {
         }
 
     /**
-     * getCnnection qui permet de verifier si la connexion est null ou fermé, il crée l'objet , sinon il retourne la connexion.
+     * getCnnection qui permet de créer un objet si la connexion est null ou fermé , sinon il retourne la connexion.
      * @return
      * @throws DatabaseException
      */

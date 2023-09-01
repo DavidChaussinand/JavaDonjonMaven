@@ -40,6 +40,7 @@ public class Game {
      * @return un plateau
      */
     public ArrayList<Case> initializationBoard(){
+
         this.board= new ArrayList<>();
 
         for (int i = 1;  i < 65 ; i++){
@@ -150,6 +151,10 @@ public class Game {
         }
     }
 
+    /**
+     * utilisation de l'interface pour récuperer l'un des dé qui utilise la méthode de l'interface rollTheDice.
+     * @return le résultat du dé lancé
+     */
     public int move(){
         DiceInterface dice = new FakeDice();
         return dice.rollTheDice();

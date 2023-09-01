@@ -10,8 +10,7 @@ public abstract class Character {
     private String name;
     private int levelOfLife;
     private int attackForce;
-    private Arme arme;
-    private Spell sort;
+
 
     /**
      * @param name
@@ -42,15 +41,7 @@ public abstract class Character {
 
 
     @Override
-    public String toString() {
-        return "characters.Character{" +
-                "name='" + this.name + '\'' +
-                ", levelOfLife=" + this.levelOfLife +
-                ", attackForce=" + this.attackForce +
-                '}';
-    }
-
-
+    public abstract String toString();
 
     public String getName() {
         return this.name;

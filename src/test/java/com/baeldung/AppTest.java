@@ -1,13 +1,12 @@
 package com.baeldung;
 
 import static org.junit.Assert.assertTrue;
-
 import characters.Character;
+import components.Dice6;
+import components.FakeDice;
 import database.Database;
 import menu.Menu;
-
 import org.junit.Test;
-
 import java.sql.Connection;
 import java.util.List;
 
@@ -50,4 +49,23 @@ public class AppTest
             assertTrue("Character list must be filled !", false);
         }
     }
+
+    @Test
+    public void shouldResulRollTheDice(){
+        Dice6 dice = new Dice6();
+        int result = dice.rollTheDice();
+        assertTrue("le resultat obtenu est " + result +" nous devons avoir entre 1 et 6  ",result >= 1 && result <= 6);
+    }
+
+    @Test
+    public void shouldResulRollTheDice3(){
+        FakeDice dice = new FakeDice();
+        int result = dice.rollTheDice();
+        assertTrue("le resultat obtenu est " + result +" nous devons avoir 1 ",result == 1 );
+    }
+
+
+
+
+
 }

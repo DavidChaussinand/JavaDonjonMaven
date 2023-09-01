@@ -96,37 +96,26 @@ public class Game {
 
 
     /**
-     * Déroulement du jeu  et qui permet de rejouer.
+     *
      * @param perso
      * @throws PersonnageHorsPlateauException
      */
-    public void play(Character perso) throws PersonnageHorsPlateauException {
+    public void play(Character perso) throws PersonnageHorsPlateauException  {
         Menu dice = new Menu();
-        boolean playInProgess = true;
         System.out.println(perso);
-        System.out.println("la parti est : " + playInProgess + "\n");
-        int j = 0;
 
-        while (this.positionPlayer < this.board.size() && playInProgess){
-                int move = dice.rollTheDice();
-                this.positionPlayer = this.positionPlayer + move;
-                Case currentCase = board.get(j);
-                System.out.println(this.board.get(this.positionPlayer-1));    // tableau commence index 0, la position du joueur est à 1 : donc positionJoueur -1 .
-                currentCase.interaction(perso);
-                System.out.println(perso);
-                System.out.println("la parti est : " + playInProgess);
-                this.tour ++ ;
-                System.out.println("tour " + tour + ":  le joueur est sur la case " + this.positionPlayer);
-            try{
-                if (this.positionPlayer > this.board.size()){
-                    throw new PersonnageHorsPlateauException(" Tu es sorti du plateau : BRAVO");
-                }
-            } catch (PersonnageHorsPlateauException e){
-                System.out.println("vous avez gagné en dépassant la case finale"+ e.getMessage());
-                playInProgess = false;
-                System.out.println("la parti est : " + playInProgess);
+        while (this.positionPlayer <= this.board.size()){
+            int move = dice.rollTheDice();
+            this.positionPlayer = this.positionPlayer + move;
+            if (this.positionPlayer > this.board.size()){
+                throw new PersonnageHorsPlateauException(" Tu es sorti du plateau : BRAVO");
             }
-            j++;
+            Case currentCase = board.get(this.positionPlayer);
+            System.out.println(this.board.get(this.positionPlayer-1));    // tableau commence index 0, la position du joueur est à 1 : donc positionJoueur -1 .
+            currentCase.interaction(perso);
+            System.out.println(perso);
+            this.tour ++ ;
+            System.out.println("tour " + tour + ":  le joueur est sur la case " + this.positionPlayer);
         }
         System.out.println("Fin de partie ,vous avez gagné");
 
@@ -156,7 +145,7 @@ public class Game {
      * @return le résultat du dé lancé
      */
     public int move(){
-        DiceInterface dice = new FakeDice();
+        DiceInterface dice = new TwoDice();
         return dice.rollTheDice();
     }
 

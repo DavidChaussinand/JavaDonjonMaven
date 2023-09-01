@@ -51,7 +51,12 @@ public class Menu {
                         int choice = user_input.nextInt();
                         Character selectedCharacter = charactersList.get(choice - 1); // -1 car l'index commence à 0
                         Game jouer = new Game();
-                        jouer.play(selectedCharacter);
+                        try{
+                            jouer.play(selectedCharacter);
+                        } catch (PersonnageHorsPlateauException e){
+                            System.out.println("vous avez gagné en dépassant la case finale");
+                            keepGoing = false;
+                        }
                     } else {
                         System.out.println("Créez d'abord un personnage !");
                     }

@@ -22,7 +22,6 @@ public class Database {
                InputStream env = new FileInputStream(".env");
                Properties properties = new Properties();
                properties.load(env);
-
                String URL = properties.getProperty("DB_URL");
                String USER = properties.getProperty("DB_USER");
                String PASSWORD = properties.getProperty("DB_PASSWORD");

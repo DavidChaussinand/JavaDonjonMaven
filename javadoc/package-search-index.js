@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"characters"},{"l":"com.baeldung"},{"l":"components"},{"l":"database"},{"l":"ennemy"},{"l":"exceptions"},{"l":"menu"},{"l":"Weapons"},{"l":"Weapons.ArmeWarrior"},{"l":"Weapons.ArmeWizard"}];updateSearchResults();
